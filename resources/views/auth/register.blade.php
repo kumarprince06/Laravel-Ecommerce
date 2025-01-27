@@ -11,45 +11,45 @@
                         <div class="mb-md-3 mt-md-2 pb-2">
                             <h2 class="fw-bold mb-2 text-uppercase text-success">Register</h2>
                             <p class="text-secondary mb-2">Create a new account!</p>
-                            <form action="" method="post" novalidate>
-
+                            <form action="{{ url('/auth/register')}}" method="post" novalidate>
+                                @csrf
                                 <!-- Floating label for Name with error handling -->
                                 <div class="form-floating form-white mb-2">
                                     <input type="text" name="name"
-                                        value=""
+                                        value="{{ old('name') }}"
                                         id="name"
                                         class="form-control form-control-sm"
                                         placeholder="Name" />
-                                    <label for="typeEmailX" class="text-dark">Name</label>
-                                    <?php  ?>
-                                    <small class="text-danger fw-bold text-start d-block"></small>
-                                    <?php  ?>
+                                    <label for="typeEmailX" class="text-dark">Name <span class="text-danger">*</span></label>
+                                    @error('name')
+                                    <small class="text-danger fw-normal mt-2 text-start d-block">{{ $message }}</small>
+                                    @enderror
                                 </div>
 
                                 <!-- Floating label for email with error handling -->
                                 <div class="form-floating form-white mb-2">
                                     <input type="email" name="email"
-                                        value=""
+                                        value="{{ old('email') }}"
                                         id="typeEmailX"
                                         class="form-control form-control-sm"
                                         placeholder="Email" />
-                                    <label for="typeEmailX" class="text-dark">Email</label>
-                                    <?php ?>
-                                    <small class="text-danger fw-bold text-start d-block"></small>
-                                    <?php  ?>
+                                    <label for="typeEmailX" class="text-dark">Email <span class="text-danger">*</span></label>
+                                    @error('email')
+                                    <small class="text-danger fw-normal mt-2 text-start d-block">{{ $message }}</small>
+                                    @enderror
                                 </div>
 
                                 <!-- Floating label for password with error handling -->
                                 <div class="form-floating form-white mb-2">
                                     <input type="password" name="password"
-                                        value=""
+                                        value="{{ old('password') }}"
                                         id="typePasswordX"
                                         class="form-control form-control-sm"
                                         placeholder="Password" />
-                                    <label for="typePasswordX" class="text-dark">Password</label>
-                                    <?php  ?>
-                                    <small class="text-danger fw-bold text-start d-block"></small>
-                                    <?php ?>
+                                    <label for="typePasswordX" class="text-dark">Password <span class="text-danger">*</span></label>
+                                    @error('password')
+                                    <small class="text-danger fw-normal mt-2 text-start d-block">{{ $message }}</small>
+                                    @enderror
                                 </div>
 
                                 <button class="btn btn-outline-dark btn-lg px-5 fw-bold" type="submit">Register</button>

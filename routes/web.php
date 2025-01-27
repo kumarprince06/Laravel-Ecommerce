@@ -28,5 +28,14 @@ Route::get('/contact', function () {
 });
 
 
+// Login Router
 Route::get('/auth/login', [LoginController::class, 'showLoginForm']);
+Route::post('/auth/login', [LoginController::class, 'login'])->name('login');
+
+// Register Router
 Route::get('/auth/register', [RegisterController::class, 'showRegisterationForm']);
+Route::post('/auth/register', [RegisterController::class, 'register'])->name('register');
+
+// Logout Router
+// In your routes/web.php
+Route::post('/logout', [App\Http\Controllers\Auth\LogoutController::class, 'logout'])->name('logout');
