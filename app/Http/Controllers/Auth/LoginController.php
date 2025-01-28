@@ -3,13 +3,19 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\Services\User\UserServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserServiceInterface $userService)
+    {
+        $this->userService = $userService;
+    }
     /**
      * Show the login form.
      *
@@ -45,34 +51,26 @@ class LoginController extends Controller
         // Extract only the 'email' and 'password' from the request
         $credentials = $request->only('email', 'password');
 
-        // Check if a user exists with the provided email
-        $user = User::where('email', $credentials['email'])->first();
+        // Delegate authentication logic to the UserService
+        $user = $this->userService->authenticateUser($validatedData['email'], $validatedData['password']);
 
+
+        // If authentication fails
         if (!$user) {
-            // Email not found
             return redirect()
                 ->back()
                 ->withInput() // Retain input values
-                ->withErrors(['email' => 'Email not found. Please try again.']);
+                ->withErrors(['email' => 'Invalid email or password. Please try again.']);
         }
 
-        if (!Hash::check($credentials['password'], $user->password)) {
-            // Password incorrect
-            return redirect()
-                ->back()
-                ->withInput()
-                ->withErrors(['password' => 'Incorrect password. Please try again.']);
-        }
-
-        // If email and password match, log the user in
+        // Log the user in
         Auth::login($user);
 
-        // Redirect based on role
-        if ($user->role === 'admin'
-        ) { // Assuming 'role' is the field to check
+        // Redirect based on user role
+        if ($user->role === 'admin') {
             return redirect('/admin/dashboard');
-        } else {
-            return redirect('/');
         }
+
+        return redirect('/');
     }
 }

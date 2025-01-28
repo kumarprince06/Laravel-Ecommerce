@@ -14,15 +14,17 @@
 
                             <!-- Dynamic error message block -->
                             @if ($errors->has('email') && $errors->has('password'))
-                                <div class="rounded text-center bg-danger fs-5 fw-bold text-start d-block m-2 mx-auto">
+                                <div class="rounded text-center bg-danger  fw-bold text-start d-block m-2 mx-auto">
                                     Invalid credentials. Please check your email and password.
                                 </div>
                             @elseif($errors->has('email'))
-                                <div class="rounded text-center bg-danger fs-5 fw-bold text-start d-block m-2 mx-auto">
+                                <div
+                                    class="rounded text-center bg-danger fw-bold pt-2 pb-2 text-start d-block m-2 mx-auto">
                                     {{ $errors->first('email') }}
                                 </div>
                             @elseif($errors->has('password'))
-                                <div class="rounded text-center bg-danger fs-5 fw-bold text-start d-block m-2 mx-auto">
+                                <div
+                                    class="rounded text-center bg-danger fw-bold pt-2 pb-2 text-start d-block m-2 mx-auto">
                                     {{ $errors->first('password') }}
                                 </div>
                             @endif
