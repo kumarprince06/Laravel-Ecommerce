@@ -4,6 +4,8 @@ namespace App\Services\User;
 
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterface;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserService implements UserServiceInterface
@@ -57,5 +59,17 @@ class UserService implements UserServiceInterface
         }
 
         return $user; // Return the user if authenticated
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @return void
+     */
+    public function logout(Request $request)
+    {
+        Auth::logout(); // Log the user out using Laravel's Auth facade
+        // Invalidate the session to prevent session fixation
+        $request->session()->invalidate();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Services\User;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 
 interface UserServiceInterface
 {
@@ -31,4 +32,11 @@ interface UserServiceInterface
      * @return \App\Models\User|null
      */
     public function authenticateUser(string $email, string $password);
+
+    /**
+     * Log the user out of the application.
+     *
+     * @return void
+     */
+    public function logout(Request $request);
 }

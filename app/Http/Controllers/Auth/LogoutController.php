@@ -3,23 +3,25 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Services\User\UserServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LogoutController extends Controller
 {
+    protected $userService;
+
+    public function __construct(UserServiceInterface $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function logout(Request $request)
     {
-        // Logout the user
-        Auth::logout();
+        // Call the logout method from the UserService
+        $this->userService->logout($request);
 
-        // Invalidate the session to prevent session fixation
-        $request->session()->invalidate();
-
-        // Regenerate the session ID for security
-        // $request->session()->regenerateToken();
-
-        // Redirect the user to a specific page after logout, such as the home page or login page
+        // Redirect the user to the login page
         return redirect('/auth/login')->with('success', 'You have been logged out successfully.');
     }
 }
