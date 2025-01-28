@@ -67,7 +67,12 @@ class LoginController extends Controller
         // If email and password match, log the user in
         Auth::login($user);
 
-        // Redirect to the intended page or home page
-        return redirect()->intended('/');
+        // Redirect based on role
+        if ($user->role === 'admin'
+        ) { // Assuming 'role' is the field to check
+            return redirect('/admin/dashboard');
+        } else {
+            return redirect('/');
+        }
     }
 }

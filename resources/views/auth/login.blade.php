@@ -27,6 +27,13 @@
                                 </div>
                             @endif
 
+                            @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                            @endif
+
+
                             <form action="{{ url('/auth/login') }}" method="post" novalidate>
                                 @csrf
                                 <!-- Floating label for email -->
