@@ -66,5 +66,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/products/add', [ProductsController::class, 'showAddProductForm'])->name('products.add');
         Route::get('/products', [ProductsController::class, 'index'])->name('products.index');
         Route::post('/products/create', [ProductsController::class, 'create'])->name('product.create');
+        // Route to show product details
+        Route::get('/products/show/{id}', [ProductsController::class, 'show'])->name('products.show');
     });
 });

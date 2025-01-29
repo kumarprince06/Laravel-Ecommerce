@@ -11,7 +11,7 @@
                     <button onclick="window.history.back();" class="btn btn-secondary me-3">
                         <i class="fas fa-arrow-left"></i> Back
                     </button>
-                    <h5 class="mb-0">Add Product</h5>
+                    {{-- <h5 class="mb-0">Add Product</h5> --}}
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
                                             placeholder="Enter product name"
                                             class="form-control rounded @error('name') is-invalid @enderror">
                                         @error('name')
-                                            <span class="error text-danger"
+                                            <span class="error text-danger mt-1"
                                                 style="font-size: 0.9rem; display: block;">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -60,7 +60,7 @@
                                             placeholder="Enter brand name"
                                             class="form-control rounded @error('brand') is-invalid @enderror">
                                         @error('brand')
-                                            <span class="error text-danger"
+                                            <span class="error text-danger mt-1"
                                                 style="font-size: 0.9rem; display: block;">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -73,10 +73,10 @@
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-9">
                                         <input type="number" name="stock" value="" id="brand"
-                                            placeholder="Enter brand name"
+                                            placeholder="Enter stock"
                                             class="form-control rounded @error('brand') is-invalid @enderror">
                                         @error('stock')
-                                            <span class="error text-danger"
+                                            <span class="error text-danger mt-1"
                                                 style="font-size: 0.9rem; display: block;">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -85,14 +85,14 @@
 
                                 <!-- Base Price -->
                                 <div class="mb-3 row align-items-center">
-                                    <label for="oPrice" class="col-sm-3 col-form-label">Base Price <span
+                                    <label for="base_price" class="col-sm-3 col-form-label">Base Price <span
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-9">
-                                        <input type="number" name="originalPrice" value="" id="oPrice"
+                                        <input type="number" name="base_price" value="" id="oPrice"
                                             placeholder="Enter base price"
-                                            class="form-control rounded  @error('originalPrice') is-invalid @enderror">
-                                        @error('originalPrice')
-                                            <span class="error text-danger"
+                                            class="form-control rounded  @error('base_price') is-invalid @enderror">
+                                        @error('base_price')
+                                            <span class="error text-danger mt-1"
                                                 style="font-size: 0.9rem; display: block;">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -100,14 +100,14 @@
 
                                 <!-- Sale Price -->
                                 <div class="mb-3 row align-items-center">
-                                    <label for="sPrice" class="col-sm-3 col-form-label">Sale Price <span
+                                    <label for="sale_price" class="col-sm-3 col-form-label">Sale Price <span
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-9">
-                                        <input type="number" name="sellingPrice" value="" id="sPrice"
+                                        <input type="number" name="sale_price" value="" id="sPrice"
                                             placeholder="Enter sale price"
-                                            class="form-control rounded @error('sellingPrice') is-invalid @enderror">
-                                        @error('sellingPrice')
-                                            <span class="error text-danger"
+                                            class="form-control rounded @error('sale_price') is-invalid @enderror">
+                                        @error('sale_price')
+                                            <span class="error text-danger mt-1"
                                                 style="font-size: 0.9rem; display: block;">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -127,7 +127,7 @@
                                                 Digital</option>
                                         </select>
                                         @error('type')
-                                            <span class="error text-danger"
+                                            <span class="error text-danger mt-1"
                                                 style="font-size: 0.9rem; display: block;">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -136,21 +136,21 @@
 
                                 <!-- Category Selection -->
                                 <div class="mb-3 row align-items-center">
-                                    <label for="category" class="col-sm-3 col-form-label">Category <span
+                                    <label for="category_id" class="col-sm-3 col-form-label">Category <span
                                             class="text-danger">*</span></label>
                                     <div class="col-sm-9">
-                                        <select name="category" id="category"
-                                            class="form-control form-select rounded @error('category') is-invalid @enderror">
+                                        <select name="category_id" id="category"
+                                            class="form-control form-select rounded @error('category_id') is-invalid @enderror">
                                             <option value="">Select Category</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
-                                                    {{ old('category') == $category->id ? 'selected' : '' }}>
+                                                    {{ old('category_id') == $category->id ? 'selected' : '' }}>
                                                     {{ $category->name }}
                                                 </option>
                                             @endforeach
                                         </select>
-                                        @error('category')
-                                            <span class="error text-danger"
+                                        @error('category_id')
+                                            <span class="error text-danger mt-1"
                                                 style="font-size: 0.9rem; display: block;">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -165,7 +165,7 @@
                                             placeholder="Enter description"
                                             class="form-control rounded @error('description') is-invalid @enderror">
                                         @error('description')
-                                            <span class="error text-danger"
+                                            <span class="error text-danger mt-1"
                                                 style="font-size: 0.9rem; display: block;">{{ $message }}</span>
                                         @enderror
                                     </div>
@@ -181,7 +181,7 @@
                                             accept="image/*"
                                             class="form-control rounded @error('images') is-invalid @enderror">
                                         @error('images')
-                                            <span class="error text-danger"
+                                            <span class="error text-danger mt-1"
                                                 style="font-size: 0.9rem; display: block;">{{ $message }}</span>
                                         @enderror
                                     </div>
