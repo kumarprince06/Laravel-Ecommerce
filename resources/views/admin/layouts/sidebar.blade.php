@@ -15,7 +15,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('inventory-management') }}"
-                        class="nav-link {{ $activeTab === 'inventory' ? 'active text-white' : '' }}">
+                        class="nav-link {{ $activeTab === 'inventory-management' ? 'active text-white' : '' }}">
                         <i class="bi bi-box-seam"></i>
                         <span>Inventory</span>
                     </a>

@@ -8,8 +8,8 @@
     <script>
         const URLROOT = "{{ url('/') }}"; // Pass Laravel URL to JS
     </script>
-    <script src="{{ asset('public/js/admin-dashboard.js') }}"></script>
-    <script src="{{ asset('public/js/filterProduct.js') }}"></script>
+    <script src="{{ asset('js/admin-dashboard.js') }}"></script>
+    <script src="{{ asset('js/filterProduct.js') }}"></script>
     </body>
 
     </html>

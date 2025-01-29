@@ -1,84 +1,53 @@
 <!-- Includes Header -->
 @include('admin.layouts.header')
 @include('admin.layouts.sidebar')
-
 <main id="main">
     <section class="inventory-revenue-charts mb-4">
         <div class="container-fluid inventory-page">
-            <!-- Top Row with Heading and Add Button -->
+            <!-- Top Row with Heading -->
             <div class="row g-3 justify-content-between mb-3">
-                <div class="col-md-4">
-                    <h5>Category Management</h5>
+                <div class="col-md-4 d-flex align-items-center">
+                    <!-- Back Button -->
+                    <button onclick="window.history.back();" class="btn btn-secondary me-3">
+                        <i class="fas fa-arrow-left"></i> Back
+                    </button>
+                    <h5 class="mb-0">Add Category</h5>
                 </div>
             </div>
-
-
-            <!-- Table with Categories -->
-            {{-- <table class="w-100 table-responsive table-bordered text-center rounded">
-                    <thead class="bg-success text-white">
-                        <tr>
-                            <th>#</th>
-                            <th>Category Name</th>
-                            <th>Operations</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($categories as $category)
-                            <tr>
-                                <td>{{ $category->id }}</td>
-                                <td>{{ $category->name }}</td>
-                                <td>
-                                    <!-- View Button to Trigger View Modal -->
-                                    <button class="btn btn-info fw-bold text-white view-btn"
-                                        data-id="{{ $category->id }}" data-name="{{ $category->name }}"
-                                        data-bs-toggle="modal" data-bs-target="#viewCategoryModal">
-                                        <i class="fa-solid fa-eye"></i>
-                                    </button>
-                                    @if (session('user.role') === 'admin')
-                                        <!-- Edit Button to Trigger Edit Modal -->
-                                        <button class="btn btn-warning fw-bold text-white edit-btn"
-                                            data-id="{{ $category->id }}" data-name="{{ $category->name }}"
-                                            data-bs-toggle="modal" data-bs-target="#editCategoryModal">
-                                            <i class="fa-solid fa-pen-to-square"></i>
-                                        </button>
-                                        <!-- Form for delete operation -->
-                                        <form action="{{ route('category.delete', $category->id) }}" method="POST"
-                                            style="display:inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger fw-bold text-white" type="submit"
-                                                onclick="return confirm('Are you sure you want to delete this category?');">
-                                                <i class="fa-solid fa-trash"></i>
-                                            </button>
-                                        </form>
-                                    @endif
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table> --}}
         </div>
     </section>
 
     <section class="dash-overview mb-4">
         <div class="row g-4">
-            <!-- Total Users -->
-            <div class="col-lg-4 col-md-4 col-sm-4">
-                <a href="{{ url('/categories/add') }}" class="card bg-success text-white text-center p-3">
-                    <h4>Add Category</h4>
-                    <p></p>
-                </a>
-            </div>
-            <!-- Total Products -->
-            <div class="col-lg-4 col-md-4 col-sm-4">
-                <a href="{{ url('/categories') }}" class="card bg-warning text-white text-center p-3">
-                    <h4>View Categories</h4>
-                    <p></p>
-                </a>
+            <!-- Add Category Form -->
+            <div class="col-md-6 mx-auto">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0">Add New Category</h5>
+                    </div>
+                    <div class="card-body">
+                        <form action="{{ route('create') }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="categoryName" class="form-label">Category Name</label>
+                                <input type="text" name="name" class="form-control" id="categoryName"
+                                    placeholder="Enter category name">
+                                @error('name')
+                                    <small class="text-danger fw-normal mt-2 text-start d-block">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div class="text-end">
+                                <button type="reset" class="btn btn-secondary">Clear</button>
+                                <button type="submit" class="btn btn-success">Add Category</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 </main>
+
 
 <!-- Modal for Viewing Category -->
 {{-- <div class="modal fade" id="viewCategoryModal" tabindex="-1" aria-labelledby="viewCategoryModalLabel"
