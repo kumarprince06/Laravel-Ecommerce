@@ -7,28 +7,28 @@
         <aside id="sidebar" class="sidebar bg-dark text-white">
             <ul class="sidebar-nav" id="sidebar-nav">
                 <li class="nav-item">
-                    <a href="{{ route('dashboard') }}"
+                    <a href="{{ route('admin.dashboard') }}"
                         class="nav-link {{ $activeTab === 'dashboard' ? 'active text-light' : '' }}">
                         <i class="bi bi-house-door-fill"></i>
                         <span>Dashboard</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('inventory-management') }}"
+                    <a href="{{ route('admin.inventory-management') }}"
                         class="nav-link {{ $activeTab === 'inventory-management' ? 'active text-white' : '' }}">
                         <i class="bi bi-box-seam"></i>
                         <span>Inventory</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('category-management') }}"
+                    <a href="{{ route('admin.category-management') }}"
                         class="nav-link {{ $activeTab === 'category-management' ? 'active text-white' : '' }}">
                         <i class="fa fa-list-alt"></i>
                         <span>Category</span>
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('orders-management') }}"
+                    <a href="{{ route('admin.orders-management') }}"
                         class="nav-link {{ $activeTab === 'orders-management' ? 'active text-white' : '' }}">
                         <i class="bi bi-cart-fill"></i>
                         <span>Orders</span>

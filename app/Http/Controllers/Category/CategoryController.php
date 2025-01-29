@@ -28,7 +28,7 @@ class CategoryController extends Controller
      */
     public function showAddCategoryForm()
     {
-        return view('categories.add');
+        return view('admin.categories.add');
     }
 
 
@@ -36,7 +36,7 @@ class CategoryController extends Controller
     {
         $perPage = $request->query('perPage', 10); // Default 10 items per page
         $categories = $this->categoryService->getAllCategoriesPaginated($perPage);
-        return view('categories.index', compact('categories'));
+        return view('admin.categories.index', compact('categories'));
     }
 
 
@@ -62,7 +62,7 @@ class CategoryController extends Controller
     public function edit($id)
     {
         $category = $this->categoryService->getCategoryById($id);
-        return view('categories.edit', compact('category'));
+        return view('admin.categories.edit', compact('category'));
     }
 
     /**

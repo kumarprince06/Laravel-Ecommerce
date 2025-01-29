@@ -31,7 +31,7 @@
 
     <header id="header" class="header fixed-top d-flex align-items-center bg-dark text-white">
         <div class="d-flex align-items-center justify-content-between">
-            <a href="{{ route('dashboard') }}" class="logo d-flex align-items-center"> Admin Dashboard </a>
+            <a href="{{ route('admin.dashboard') }}" class="logo d-flex align-items-center"> Admin Dashboard </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
         </div>
         <nav class="header-nav ms-auto">

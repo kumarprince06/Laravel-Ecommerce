@@ -64,14 +64,14 @@
         <div class="row g-4">
             <!-- Total Users -->
             <div class="col-lg-4 col-md-4 col-sm-4">
-                <a href="{{ url('/categories/add') }}" class="card bg-success text-white text-center p-3">
+                <a href="{{ route('admin.categories.add') }}" class="card bg-success text-white text-center p-3">
                     <h4>Add Category</h4>
                     <p></p>
                 </a>
             </div>
             <!-- Total Products -->
             <div class="col-lg-4 col-md-4 col-sm-4">
-                <a href="{{ url('/categories') }}" class="card bg-warning text-white text-center p-3">
+                <a href="{{ route('admin.categories.index') }}" class="card bg-warning text-white text-center p-3">
                     <h4>View Categories</h4>
                     <p></p>
                 </a>

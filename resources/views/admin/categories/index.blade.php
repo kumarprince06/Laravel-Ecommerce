@@ -14,7 +14,7 @@
                 </div>
                 <!-- Add Category Button (Aligned to the Right) -->
                 <div class="col-md-8 d-flex justify-content-end align-items-center">
-                    <a href="{{ route('categories.add') }}" class="btn btn-success">
+                    <a href="{{ route('admin.categories.add') }}" class="btn btn-success">
                         <i class="fas fa-plus"></i> Add Category
                     </a>
                 </div>
@@ -70,9 +70,9 @@
                                 <td>{{ $category->name }}</td>
                                 <td>{{ $category->slug }}</td>
                                 <td>
-                                    <a href="{{ route('categories.edit', $category->id) }}"
+                                    <a href="{{ route('admin.categories.edit', $category->id) }}"
                                         class="btn btn-sm btn-primary">Edit</a>
-                                    <form action="{{ route('categories.destroy', $category->id) }}" method="POST"
+                                    <form action="{{ route('admin.categories.destroy', $category->id) }}" method="POST"
                                         class="d-inline">
                                         @csrf
                                         @method('DELETE')

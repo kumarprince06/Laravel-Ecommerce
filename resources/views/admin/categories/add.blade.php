@@ -26,7 +26,7 @@
                         <h5 class="mb-0">Add New Category</h5>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('create') }}" method="POST">
+                        <form action="{{ route('admin.categories.create') }}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label for="categoryName" class="form-label">Category Name</label>
