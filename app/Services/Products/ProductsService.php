@@ -30,4 +30,9 @@ class ProductsService implements ProductsServiceInterface
         // Eager load the images relationship
         return $this->productRepository->findById($id)->load('images');
     }
+
+    public function getAllProductsPaginated($perPage)
+    {
+        return $this->productRepository->getAllPaginated($perPage);
+    }
 }

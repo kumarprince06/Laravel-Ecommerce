@@ -5,8 +5,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Cart\CartController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Products\ProductsController;
+use App\Http\Controllers\Wishlist\WishlistController;
+use App\Services\Cart\CartService;
 
 /*
 |--------------------------------------------------------------------------
@@ -69,4 +72,13 @@ Route::middleware(['auth'])->group(function () {
         // Route to show product details
         Route::get('/products/show/{id}', [ProductsController::class, 'show'])->name('products.show');
     });
+
+    Route::post('/wishlist/add', [WishlistController::class])->name('wishlist.add');
+    Route::post('/cart/add', [CartController::class, 'create'])->name('cart.add');
+    Route::get('/cart/{id}', [CartController::class, 'index'])->name('cart.index');
+    Route::delete('cart/delete', [CartController::class, 'delete'])->name('cart.delete');
 });
+
+
+Route::get('/products', [ProductsController::class, 'index'])->name('products.index');
+Route::get('/products/show/{id}', [ProductsController::class, 'show'])->name('products.show');

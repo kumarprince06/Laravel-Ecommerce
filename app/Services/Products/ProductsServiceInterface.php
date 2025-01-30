@@ -12,5 +12,7 @@ interface ProductsServiceInterface
 
     public function getAllProducts();
 
+    public function getAllProductsPaginated($perPage);
+
     public function getProductById(int $id);
 }

@@ -10,6 +10,8 @@ use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use App\Repositories\ProductRepository;
 use App\Repositories\UserRepository;
+use App\Services\Cart\CartService;
+use App\Services\Cart\CartServiceInterface;
 use App\Services\Category\CategoryService;
 use App\Services\Category\CategoryServiceInterface;
 use App\Services\Images\ImageServiceInterface;
@@ -19,6 +21,8 @@ use App\Services\User\UserService;
 use App\Services\User\UserServiceInterface;
 use Illuminate\Support\ServiceProvider;
 use App\Services\Images\ImageService;
+use App\Repositories\CartRepository;
+use App\Repositories\Interfaces\CartRepositoryInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -42,6 +46,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(ImageServiceInterface::class, ImageService::class);
         $this->app->bind(ImageRepositoryInterface::class, ImageRepository::class);
+
+        $this->app->bind(CartServiceInterface::class, CartService::class);
+        $this->app->bind(CartRepositoryInterface::class, CartRepository::class);
     }
 
     /**

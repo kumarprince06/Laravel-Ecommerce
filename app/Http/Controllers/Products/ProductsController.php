@@ -32,12 +32,21 @@ class ProductsController extends Controller
         return view('admin.products.add', compact('categories'));
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $products = $this->productService->getAllProducts();
+        $perPage = $request->query('perPage', 10);
+        $categories = $this->categoryService->getAllCategories();
+        $products = $this->productService->getAllProductsPaginated($perPage);
 
-        return view('admin.products.index', compact('products'));
+        // Check if the user is authenticated and their role is 'admin'
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return view('admin.products.index', compact('products'));
+        }
+
+        // Redirect unauthenticated or non-admin users to the products.index page
+        return view('products.index', compact('products', 'categories'));
     }
+
 
     public function create(Request $request)
     {
@@ -89,6 +98,10 @@ class ProductsController extends Controller
         // dd($product->images->toArray());
 
         // Pass the product to the view
-        return view('admin.products.show', compact('product'));
+        if (auth()->check() && auth()->user()->role === 'admin') {
+            return view('admin.products.show', compact('product'));
+        }
+
+        return view('products.show', compact('product'));
     }
 }

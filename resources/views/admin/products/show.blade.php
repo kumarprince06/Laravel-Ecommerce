@@ -18,20 +18,31 @@
                     <!-- Product Image Gallery -->
                     <div id="product-gallery" class="mb-4">
                         <div class="main-image">
-                            <img src="{{ asset('storage/' . $product->images->first()->name) }}"
+                            <img src="{{ $product->images->isNotEmpty() ? asset('storage/' . $product->images->first()->name) : asset('images/default-product.jpg') }}"
                                 alt="{{ $product->name }}" class="img-fluid" id="main-product-image">
                         </div>
+
                         <div class="thumbnails mt-3 d-flex">
-                            @foreach ($product->images as $image)
+                            @if ($product->images->isNotEmpty())
+                                @foreach ($product->images as $image)
+                                    <div class="thumbnail" style="margin-right: 10px;">
+                                        <img src="{{ asset('storage/' . $image->name) }}" alt="{{ $product->name }}"
+                                            class="img-thumbnail"
+                                            style="cursor: pointer; width: 80px; height: 80px; object-fit: cover;"
+                                            onclick="changeImage('{{ asset('storage/' . $image->name) }}')">
+                                    </div>
+                                @endforeach
+                            @else
                                 <div class="thumbnail" style="margin-right: 10px;">
-                                    <img src="{{ asset('storage/' . $image->name) }}" alt="{{ $product->name }}"
+                                    <img src="{{ asset('images/default-product.jpg') }}" alt="No Image Available"
                                         class="img-thumbnail"
                                         style="cursor: pointer; width: 80px; height: 80px; object-fit: cover;"
-                                        onclick="changeImage('{{ asset('storage/' . $image->name) }}')">
+                                        onclick="changeImage('{{ asset('images/default-product.jpg') }}')">
                                 </div>
-                            @endforeach
+                            @endif
                         </div>
                     </div>
+
                 </div>
 
                 <div class="col-lg-7 col-md-6">
@@ -62,20 +73,25 @@
                                 <span class="badge bg-danger">Out of Stock</span>
                             @endif
                         </div>
-                        <div class="add-to-cart-section mb-3">
+                        {{-- <div class="add-to-cart-section mb-3">
                             <button class="btn btn-primary btn-lg w-100" type="button">
                                 <i class="fas fa-shopping-cart"></i> Add to Cart
                             </button>
+                        </div> --}}
+                        <!-- Product Description -->
+                        <div class="product-description mt-4">
+                            <h5>Description</h5>
+                            <p>{{ $product->description }}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Product Description -->
+            {{-- <!-- Product Description -->
             <div class="product-description mt-4">
                 <h5>Description</h5>
                 <p>{{ $product->description }}</p>
-            </div>
+            </div> --}}
         </div>
     </section>
 </main>

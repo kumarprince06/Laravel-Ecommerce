@@ -70,7 +70,7 @@
                             <a class="nav-link" href="{{ url('/') }}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ url('/product') }}">Product</a>
+                            <a class="nav-link" href="{{ route('products.index') }}">Product</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/about') }}">About</a>
@@ -98,7 +98,7 @@
                     @if (auth()->check())
                         <!-- Cart Icon -->
                         <a class="nav-icon position-relative text-decoration-none"
-                            href="{{ url('/userController/myCart') }}">
+                            href="{{ route('cart.index', ['id' => auth()->user()->id]) }}">
                             <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
                             <span
                                 class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-danger text-light">
@@ -134,16 +134,6 @@
                             <button type="button" class="btn btn-secondary fw-4">Login</button>
                         </a>
                     @endif
-
-                    <!-- Logout Form (when logged in) -->
-                    {{-- @if (auth()->check())
-                        
-                    @else
-                        <a class="nav-icon position-relative text-decoration-none" href="{{ url('/auth/login') }}">
-                            <button type="button" class="btn btn-secondary fw-4">Login</button>
-                        </a>
-                    @endif --}}
-
 
                 </div>
             </div>

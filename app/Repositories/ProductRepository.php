@@ -33,4 +33,9 @@ class ProductRepository implements ProductRepositoryInterface
     {
         return Product::destroy($id);
     }
+
+    public function getAllPaginated($perPage = 10)
+    {
+        return Product::with('images')->paginate($perPage);
+    }
 }

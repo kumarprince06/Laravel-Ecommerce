@@ -41,7 +41,7 @@ class ImageService implements ImageServiceInterface
                 // Prepare image data for database
                 $imageData[] = [
                     'product_id' => $productId,
-                    'image_path' => $path,
+                    'name' => $path,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];
