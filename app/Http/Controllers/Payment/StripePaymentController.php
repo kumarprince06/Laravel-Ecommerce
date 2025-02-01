@@ -152,11 +152,11 @@ class StripePaymentController extends Controller
         // Clear cart after successful payment
         session()->forget(['cart', 'stripe_session_id']);
 
-        return view('checkout.success')->with('message', 'Payment Successful! Thank you for your order.');
+        return view('checkout.success')->with('message', 'Thank you for your order. Your payment has been processed successfully.');
     }
 
     public function cancel()
     {
-        return redirect()->route('cart.index')->with('error', 'Payment Cancelled!');
+        return view('checkout.failure')->with('error', 'Unfortunately, your payment could not be processed. Please try again after sometime.');
     }
 }
