@@ -18,5 +18,7 @@ interface CartServiceInterface
 
     public function deleteCartItem(int $cartItemId);
 
+    public function deleteCartByUserId($id);
+
     // public function getAllCartPaginatedById($perPage, $userId);
 }

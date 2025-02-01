@@ -2,7 +2,6 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -15,13 +14,12 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->decimal('total_price', 10, 2);
-            $table->enum('status', ['placed', 'dispatched', 'delivered', 'shipped', 'out for delivery', 'cancelled'])->default('placed');
-            $table->timestamp('order_date')->default(DB::raw('CURRENT_TIMESTAMP')); // Setting default to current timestamp
+            $table->foreignId('address_id')->constrained()->onDelete('cascade');
+            $table->decimal('total_amount', 10, 2);
+            $table->enum('status', ['placed', 'shipped', 'out for delivery', 'delivered',  'cancelled'])->default('placed');
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.

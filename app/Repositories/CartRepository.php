@@ -55,4 +55,9 @@ class CartRepository implements CartRepositoryInterface
 
         return false;
     }
+
+    public function deleteCartByUserId($id)
+    {
+        return Cart::where('user_id', $id)->delete();
+    }
 }

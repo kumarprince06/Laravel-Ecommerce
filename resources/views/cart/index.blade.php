@@ -1,7 +1,6 @@
 @include('layouts.header')
 
 <div class="container py-1">
-
     <!-- Success and Error Alerts -->
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show mt-5 text-center" role="alert">
@@ -18,6 +17,7 @@
     @endif
 
     <h1 class="mt-5">Cart List</h1>
+
     @if ($cartItems->isEmpty())
         <div class="text-center py-2 border rounded mb-5">
             <img class="img-fluid w-25" src="{{ asset('images/empty-cart.gif') }}" alt="empty cart logo">
@@ -31,6 +31,7 @@
             $subtotal = 0;
             $deliveryCharge = 0;
         @endphp
+
         <div class="row">
             <!-- Cart Items -->
             <div class="col-lg-8">
@@ -44,34 +45,38 @@
                             <div class="col-md-6">
                                 <div class="d-flex">
                                     <img src="{{ $item->product->images->isNotEmpty() ? asset('storage/' . $item->product->images->first()->name) : asset('images/default-product.jpg') }}"
-                                        alt="{{ $item->product->name }}" class="img-fluid w-50 h-50"
-                                        id="main-product-image">
+                                        alt="{{ $item->product->name }}" class="img-fluid w-50 h-50">
                                     <div class="mx-3">
                                         <h5>{{ $item->product->name }}</h5>
                                         <p>Brand: {{ $item->product->brand }}</p>
-                                        <h5>₹ {{ $item->product->sale_price }}</h5>
+                                        <h5>₹ {{ number_format($item->product->sale_price, 2) }}</h5>
                                         <small class="badge bg-success">In Stock</small>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-6 d-flex justify-content-between">
-                                <div>
-                                    {{-- <form action="{{ route('cart.index', $item->product_id) }}" method="POST"
-                                        style="display:inline;">
+                                <!-- Quantity Update Form -->
+                                <div class="d-flex align-items-center">
+                                    {{-- <form action="{{ route('cart.update', $item->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-outline-secondary btn-sm">
+                                        @method('PATCH')
+                                        <button type="submit" name="quantity" value="{{ $item->quantity - 1 }}"
+                                            class="btn btn-outline-secondary btn-sm"
+                                            {{ $item->quantity <= 1 ? 'disabled' : '' }}>
                                             <i class="fa-solid fa-minus"></i>
                                         </button>
                                     </form>
-                                    <span>{{ $item->quantity }}</span>
-                                    <form action="{{ route('cart.index', $item->product_id) }}" method="POST"
-                                        style="display:inline;">
+                                    <span class="mx-2">{{ $item->quantity }}</span>
+                                    <form action="{{ route('cart.update', $item->id) }}" method="POST">
                                         @csrf
-                                        <button type="submit" class="btn btn-outline-secondary btn-sm">
+                                        @method('PATCH')
+                                        <button type="submit" name="quantity" value="{{ $item->quantity + 1 }}"
+                                            class="btn btn-outline-secondary btn-sm">
                                             <i class="fa-solid fa-plus"></i>
                                         </button>
                                     </form> --}}
                                 </div>
+                                <!-- Remove Item -->
                                 <form action="{{ route('cart.delete') }}" method="POST">
                                     @csrf
                                     @method('DELETE')
@@ -87,38 +92,91 @@
                 <hr>
             </div>
 
+            {{-- @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif --}}
+
+
             <!-- Order Summary -->
             <div class="col-lg-4">
-                @if ($subtotal >= 500)
-                    @php $deliveryCharge = 99; @endphp
-                @endif
+                @php
+                    $deliveryCharge = $subtotal >= 500 ? 0 : 99;
+                @endphp
                 <div class="bg-light rounded-3 p-4 sticky-top mt-4">
                     <h6 class="mb-4">Order Summary</h6>
                     <div class="d-flex justify-content-between">
                         <span>Subtotal</span>
-                        <span><strong>₹ {{ $subtotal }}</strong></span>
+                        <span><strong>₹ {{ number_format($subtotal, 2) }}</strong></span>
                     </div>
                     <hr />
-                    @if ($subtotal <= 500)
-                        <div class="d-flex justify-content-between">
-                            <span>Delivery Charge</span>
-                            <span><strong>₹ {{ $deliveryCharge }}</strong></span>
-                        </div>
-                        <hr />
-                    @else
-                        <div class="d-flex justify-content-between">
-                            <span>Delivery Charge</span>
-                            <span><strong>₹ 0</strong></span>
-                        </div>
-                        <hr />
-                    @endif
+                    <div class="d-flex justify-content-between">
+                        <span>Delivery Charge</span>
+                        <span><strong>₹ {{ number_format($deliveryCharge, 2) }}</strong></span>
+                    </div>
+                    <hr />
                     <div class="d-flex justify-content-between">
                         <span>Total</span>
-                        <span><strong>₹ {{ $subtotal + $deliveryCharge }}</strong></span>
+                        <span><strong>₹ {{ number_format($subtotal + $deliveryCharge, 2) }}</strong></span>
                     </div>
-                    <form action="{{ route('cart.add') }}" method="POST">
+                    <!-- Address Form -->
+                    {{-- <h6 class="mt-4">Shipping Address</h6> --}}
+                    <form action="{{ route('checkout.index') }}" method="POST">
                         @csrf
-                        <button class="btn btn-success w-100 mt-4">Checkout</button>
+
+                        <div class="mb-1 mt-3">
+                            <label class="form-label">Phone Number</label>
+                            <input type="text" name="phone" class="form-control" value="{{ old('phone') }}">
+                            @error('phone')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        {{-- <div class="mb-1">
+                            <label class="form-label">Address</label>
+                            <textarea name="address" class="form-control" rows="2">{{ old('address') }}</textarea>
+                            @error('address')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="mb-1">
+                            <label class="form-label">City</label>
+                            <input type="text" name="city" class="form-control" value="{{ old('city') }}">
+                            @error('city')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="mb-1">
+                            <label class="form-label">State</label>
+                            <input type="text" name="state" class="form-control" value="{{ old('state') }}">
+                            @error('state')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="mb-1">
+                            <label class="form-label">Country</label>
+                            <input type="text" name="country" class="form-control" value="{{ old('country') }}">
+                            @error('country')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+
+                        <div class="mb-1">
+                            <label class="form-label">Zip Code</label>
+                            <input type="text" name="zip" class="form-control" value="{{ old('zip') }}">
+                            @error('zip')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div> --}}
+                        <button class="btn btn-success w-100 mt-3">Proceed to Checkout</button>
                     </form>
                 </div>
             </div>

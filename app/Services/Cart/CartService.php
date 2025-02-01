@@ -44,4 +44,9 @@ class CartService implements CartServiceInterface
     {
         return $this->cartRepository->deleteCartItem($cartItemId);
     }
+
+    public function deleteCartByUserId($id)
+    {
+        return $this->cartRepository->deleteCartByUserId($id);
+    }
 }

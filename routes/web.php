@@ -10,6 +10,7 @@ use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Products\ProductsController;
 use App\Http\Controllers\Wishlist\WishlistController;
 use App\Services\Cart\CartService;
+use App\Http\Controllers\Payment\StripePaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +78,10 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/cart/add', [CartController::class, 'create'])->name('cart.add');
     Route::get('/cart/{id}', [CartController::class, 'index'])->name('cart.index');
     Route::delete('cart/delete', [CartController::class, 'delete'])->name('cart.delete');
+
+    Route::post('/checkout', [StripePaymentController::class, 'checkout'])->name('checkout.index');
+    Route::get('/checkout/success', [StripePaymentController::class, 'success'])->name('checkout.success');
+    Route::get('/checkout/cancel', [StripePaymentController::class, 'cancel'])->name('checkout.cancel');
 });
 
 
